@@ -15,26 +15,30 @@ public class ValidBinaryTree {
 		
 		two.left = one;
 		two.right = three;
-		//System.out.println(isValidBinaryTree(four));
+		System.out.println(isValidBinaryTree(four));
 		
 	
 		
 	}
-	
-	
-
 	public static boolean isValidBinaryTree(Node root) {
-		if(root==null) {
-			return true;
-		}
+		return helper(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
 		
-		boolean left = isValidBinaryTree(root.left);
-		boolean right = isValidBinaryTree(root.right);
-		if(left && right && (root.left ==null || root.value > root.left.value) && (root.right==null || root.value < root.right.value)) {
+	}
+	
+	public static boolean helper(Node root, int minVal, int maxVal) {
+		if(root ==null) return true;
+		boolean left = helper(root.left,minVal,root.value);
+		boolean right = helper(root.right,root.value,maxVal);
+		if(left && right && root.value >minVal && root.value < maxVal) {
 			return true;
 		}else {
 			return false;
 		}
-		
 	}
+	
+	
+
+
+
+	
 }
